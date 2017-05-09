@@ -14,6 +14,7 @@ interface GrantTypeInterface
     public function validateRequest(RequestInterface $request, ResponseInterface $response);
     public function getClientId();
     public function getUserId();
+    public function getFileId();
     public function getScope();
-    public function createAccessToken(AccessTokenInterface $accessToken, $client_id, $user_id, $scope);
+    public function createAccessToken(AccessTokenInterface $accessToken, $client_id, $user_id, $file_id, $scope);
 }

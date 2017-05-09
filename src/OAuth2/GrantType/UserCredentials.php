@@ -71,14 +71,19 @@ class UserCredentials implements GrantTypeInterface
     {
         return $this->userInfo['user_id'];
     }
+    
+    public function getFileId()
+    {
+    	return isset($this->userInfo['file_id']) ? $this->userInfo['file_id'] : null;
+    }
 
     public function getScope()
     {
         return isset($this->userInfo['scope']) ? $this->userInfo['scope'] : null;
     }
 
-    public function createAccessToken(AccessTokenInterface $accessToken, $client_id, $user_id, $scope)
+    public function createAccessToken(AccessTokenInterface $accessToken, $client_id, $user_id, $file_id, $scope)
     {
-        return $accessToken->createAccessToken($client_id, $user_id, $scope);
+        return $accessToken->createAccessToken($client_id, $user_id, $file_id, $scope);
     }
 }

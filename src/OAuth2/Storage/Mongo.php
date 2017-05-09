@@ -134,7 +134,7 @@ class Mongo implements AuthorizationCodeInterface,
         return is_null($token) ? false : $token;
     }
 
-    public function setAccessToken($access_token, $client_id, $user_id, $expires, $scope = null)
+    public function setAccessToken($access_token, $client_id, $user_id, $file_id, $expires, $scope = null)
     {
         // if it exists, update it.
         if ($this->getAccessToken($access_token)) {
@@ -144,6 +144,7 @@ class Mongo implements AuthorizationCodeInterface,
                     'client_id' => $client_id,
                     'expires' => $expires,
                     'user_id' => $user_id,
+                	'file_id' => $file_id,
                     'scope' => $scope
                 ))
             );
@@ -154,6 +155,7 @@ class Mongo implements AuthorizationCodeInterface,
                     'client_id' => $client_id,
                     'expires' => $expires,
                     'user_id' => $user_id,
+                	'file_id' => $file_id,
                     'scope' => $scope
                 )
             );
@@ -171,7 +173,7 @@ class Mongo implements AuthorizationCodeInterface,
         return is_null($code) ? false : $code;
     }
 
-    public function setAuthorizationCode($code, $client_id, $user_id, $redirect_uri, $expires, $scope = null)
+    public function setAuthorizationCode($code, $client_id, $user_id, $file_id, $redirect_uri, $expires, $scope = null)
     {
         // if it exists, update it.
         if ($this->getAuthorizationCode($code)) {
@@ -180,6 +182,7 @@ class Mongo implements AuthorizationCodeInterface,
                 array('$set' => array(
                     'client_id' => $client_id,
                     'user_id' => $user_id,
+                	'file_id' => $file_id,
                     'redirect_uri' => $redirect_uri,
                     'expires' => $expires,
                     'scope' => $scope
@@ -191,6 +194,7 @@ class Mongo implements AuthorizationCodeInterface,
                     'authorization_code' => $code,
                     'client_id' => $client_id,
                     'user_id' => $user_id,
+                	'file_id' => $file_id,
                     'redirect_uri' => $redirect_uri,
                     'expires' => $expires,
                     'scope' => $scope
@@ -236,13 +240,14 @@ class Mongo implements AuthorizationCodeInterface,
         return is_null($token) ? false : $token;
     }
 
-    public function setRefreshToken($refresh_token, $client_id, $user_id, $expires, $scope = null)
+    public function setRefreshToken($refresh_token, $client_id, $user_id, $file_id, $expires, $scope = null)
     {
         $this->collection('refresh_token_table')->insert(
             array(
                 'refresh_token' => $refresh_token,
                 'client_id' => $client_id,
                 'user_id' => $user_id,
+            	'file_id' => $file_id,
                 'expires' => $expires,
                 'scope' => $scope
             )

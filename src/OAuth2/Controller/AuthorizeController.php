@@ -60,7 +60,7 @@ class AuthorizeController implements AuthorizeControllerInterface
         $this->scopeUtil = $scopeUtil;
     }
 
-    public function handleAuthorizeRequest(RequestInterface $request, ResponseInterface $response, $is_authorized, $user_id = null)
+    public function handleAuthorizeRequest(RequestInterface $request, ResponseInterface $response, $is_authorized, $user_id = null, $file_id = null)
     {
         if (!is_bool($is_authorized)) {
             throw new \InvalidArgumentException('Argument "is_authorized" must be a boolean.  This method must know if the user has granted access to the client.');
@@ -72,9 +72,10 @@ class AuthorizeController implements AuthorizeControllerInterface
             return;
         }
 
+        $clientData = $this->clientStorage->getClientDetails($this->client_id);
+        
         // If no redirect_uri is passed in the request, use client's registered one
         if (empty($this->redirect_uri)) {
-            $clientData              = $this->clientStorage->getClientDetails($this->client_id);
             $registered_redirect_uri = $clientData['redirect_uri'];
         }
 
@@ -93,8 +94,11 @@ class AuthorizeController implements AuthorizeControllerInterface
             'redirect_uri'  => $this->redirect_uri,
             'response_type' => $this->response_type,
         );
-
-        $authResult = $this->responseTypes[$this->response_type]->getAuthorizeResponse($params, $user_id);
+        //zh_zh 2017.4 add userId
+		if(!$user_id){
+			$user_id = $clientData['user_id'];
+		}
+        $authResult = $this->responseTypes[$this->response_type]->getAuthorizeResponse($params, $user_id, $file_id);
 
         list($redirect_uri, $uri_params) = $authResult;
 

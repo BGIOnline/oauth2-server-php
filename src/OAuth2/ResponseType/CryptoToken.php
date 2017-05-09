@@ -56,7 +56,7 @@ class CryptoToken extends AccessToken
      * @see http://tools.ietf.org/html/rfc6749#section-5
      * @ingroup oauth2_section_5
      */
-    public function createAccessToken($client_id, $user_id, $scope = null, $includeRefreshToken = true)
+    public function createAccessToken($client_id, $user_id, $file_id, $scope = null, $includeRefreshToken = true)
     {
         // token to encrypt
         $expires = time() + $this->config['access_lifetime'];
@@ -66,7 +66,8 @@ class CryptoToken extends AccessToken
             'user_id'    => $user_id,
             'expires'    => $expires,
             'token_type' => $this->config['token_type'],
-            'scope'      => $scope
+            'scope'      => $scope,
+        	'file_id'    => $file_id
         );
 
         /*
@@ -81,7 +82,7 @@ class CryptoToken extends AccessToken
             if ($this->config['refresh_token_lifetime'] > 0) {
                 $expires = time() + $this->config['refresh_token_lifetime'];
             }
-            $this->refreshStorage->setRefreshToken($cryptoToken['refresh_token'], $client_id, $user_id, $expires, $scope);
+            $this->refreshStorage->setRefreshToken($cryptoToken['refresh_token'], $client_id, $user_id, $file_id, $expires, $scope);
         }
 
         /*
@@ -95,7 +96,7 @@ class CryptoToken extends AccessToken
          * if no secondary storage has been supplied
          */
         $token_to_store = $this->config['store_encrypted_token_string'] ? $access_token : $cryptoToken['id'];
-        $this->tokenStorage->setAccessToken($token_to_store, $client_id, $user_id, $this->config['access_lifetime'] ? time() + $this->config['access_lifetime'] : null, $scope);
+        $this->tokenStorage->setAccessToken($token_to_store, $client_id, $user_id, $file_id, $this->config['access_lifetime'] ? time() + $this->config['access_lifetime'] : null, $scope);
 
         // token to return to the client
         $token = array(

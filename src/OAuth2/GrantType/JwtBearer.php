@@ -211,10 +211,10 @@ class JwtBearer implements GrantTypeInterface, ClientAssertionTypeInterface
      *
      * @see OAuth2\GrantType\GrantTypeInterface::createAccessToken()
      */
-    public function createAccessToken(AccessTokenInterface $accessToken, $client_id, $user_id, $scope)
+    public function createAccessToken(AccessTokenInterface $accessToken, $client_id, $user_id, $file_id, $scope)
     {
         $includeRefreshToken = false;
 
-        return $accessToken->createAccessToken($client_id, $user_id, $scope, $includeRefreshToken);
+        return $accessToken->createAccessToken($client_id, $user_id, $file_id, $scope, $includeRefreshToken);
     }
 }

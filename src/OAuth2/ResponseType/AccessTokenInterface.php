@@ -23,5 +23,5 @@ interface AccessTokenInterface extends ResponseTypeInterface
      * @see http://tools.ietf.org/html/rfc6749#section-5
      * @ingroup oauth2_section_5
      */
-    public function createAccessToken($client_id, $user_id, $scope = null, $includeRefreshToken = true);
+    public function createAccessToken($client_id, $user_id, $file_id, $scope = null, $includeRefreshToken = true);
 }

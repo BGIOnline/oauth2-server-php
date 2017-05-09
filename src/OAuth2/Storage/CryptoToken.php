@@ -68,10 +68,10 @@ class CryptoToken implements CryptoTokenInterface
         return $tokenData;
     }
 
-    public function setAccessToken($oauth_token, $client_id, $user_id, $expires, $scope = null)
+    public function setAccessToken($oauth_token, $client_id, $user_id, $file_id, $expires, $scope = null)
     {
         if ($this->tokenStorage) {
-            return $this->tokenStorage->setAccessToken($oauth_token, $client_id, $user_id, $expires, $scope);
+            return $this->tokenStorage->setAccessToken($oauth_token, $client_id, $user_id, $file_id, $expires, $scope);
         }
     }
 }

@@ -92,11 +92,11 @@ class Redis implements AuthorizationCodeInterface,
         return $this->getValue($this->config['code_key'] . $code);
     }
 
-    public function setAuthorizationCode($authorization_code, $client_id, $user_id, $redirect_uri, $expires, $scope = null)
+    public function setAuthorizationCode($authorization_code, $client_id, $user_id, $file_id , $redirect_uri, $expires, $scope = null)
     {
         return $this->setValue(
             $this->config['code_key'] . $authorization_code,
-            compact('authorization_code', 'client_id', 'user_id', 'redirect_uri', 'expires', 'scope'),
+            compact('authorization_code', 'client_id', 'user_id', 'file_id', 'redirect_uri', 'expires', 'scope'),
             $expires
         );
     }
@@ -195,11 +195,11 @@ class Redis implements AuthorizationCodeInterface,
         return $this->getValue($this->config['refresh_token_key'] . $refresh_token);
     }
 
-    public function setRefreshToken($refresh_token, $client_id, $user_id, $expires, $scope = null)
+    public function setRefreshToken($refresh_token, $client_id, $user_id, $file_id, $expires, $scope = null)
     {
         return $this->setValue(
             $this->config['refresh_token_key'] . $refresh_token,
-            compact('refresh_token', 'client_id', 'user_id', 'expires', 'scope'),
+            compact('refresh_token', 'client_id', 'user_id', 'file_id', 'expires', 'scope'),
             $expires
         );
     }
@@ -215,11 +215,11 @@ class Redis implements AuthorizationCodeInterface,
         return $this->getValue($this->config['access_token_key'].$access_token);
     }
 
-    public function setAccessToken($access_token, $client_id, $user_id, $expires, $scope = null)
+    public function setAccessToken($access_token, $client_id, $user_id, $file_id, $expires, $scope = null)
     {
         return $this->setValue(
             $this->config['access_token_key'].$access_token,
-            compact('access_token', 'client_id', 'user_id', 'expires', 'scope'),
+            compact('access_token', 'client_id', 'user_id', 'file_id', 'expires', 'scope'),
             $expires
         );
     }

@@ -90,10 +90,15 @@ class AuthorizationCode implements GrantTypeInterface
     {
         return isset($this->authCode['user_id']) ? $this->authCode['user_id'] : null;
     }
-
-    public function createAccessToken(AccessTokenInterface $accessToken, $client_id, $user_id, $scope)
+    
+    public function getFileId()
     {
-        $token = $accessToken->createAccessToken($client_id, $user_id, $scope);
+    	return isset($this->authCode['file_id']) ? $this->authCode['file_id'] : null;
+    }
+
+    public function createAccessToken(AccessTokenInterface $accessToken, $client_id, $user_id, $file_id, $scope)
+    {
+        $token = $accessToken->createAccessToken($client_id, $user_id, $file_id, $scope);
         $this->storage->expireAuthorizationCode($this->authCode['code']);
 
         return $token;

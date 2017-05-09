@@ -74,7 +74,7 @@ interface AuthorizationCodeInterface
      *
      * @ingroup oauth2_section_4
      */
-    public function setAuthorizationCode($code, $client_id, $user_id, $redirect_uri, $expires, $scope = null);
+    public function setAuthorizationCode($code, $client_id, $user_id, $file_id, $redirect_uri, $expires, $scope = null);
 
     /**
      * once an Authorization Code is used, it must be exipired
